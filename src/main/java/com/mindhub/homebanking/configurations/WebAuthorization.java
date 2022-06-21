@@ -20,6 +20,7 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http)throws Exception{
         http.authorizeRequests()
+                .antMatchers("/rest/**","/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST,"api/loans").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/**").hasAuthority("CLIENT")
@@ -27,7 +28,6 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/accounts/**").hasAuthority("CLIENT")
                 .antMatchers("/api/loans/**").hasAuthority("CLIENT")
                 .antMatchers(HttpMethod.PATCH,"/api/clients/current/cards/*").hasAuthority("CLIENT")
-                .antMatchers("/api/**").hasAuthority("ADMIN")
                 .antMatchers("/api/prestamos").permitAll()
                 .antMatchers("/web/accounts.html").hasAuthority("CLIENT")
                 .antMatchers("/web/account.html").hasAuthority("CLIENT")
@@ -39,6 +39,7 @@ class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers("/attachments/**").permitAll()
                 .antMatchers("/scripts/**").permitAll()
                 .antMatchers("/styles/**").permitAll()
+                .antMatchers("/api/**").hasAuthority("ADMIN")
                 .antMatchers("/**").permitAll();
 
         http.formLogin()
