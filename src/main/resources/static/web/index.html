@@ -14,55 +14,53 @@
             <img class="img-fluid"  src="../attachments/logo (12) - copia.png">
        </header>    
         <main class="d-flex justify-content-center align-items-streched p-3 row">
-            <div class="container d-flex justify-content-start" v-if="form">
-                <nav class ="navbar col-6 d-flex align-items-start">
+            <div class="container d-flex justify-content-start" >
+                <nav class ="navbar col-6 d-flex align-items-center">
                     <h1>HomeBanking</h1>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae pariatur accusantium voluptates minima cum laborum alias exercitationem. Mollitia error corporis veniam debitis accusamus nulla beatae magni at in! Eveniet, autem?</p>
                 </nav>
-                <form class="d-flex row col-6 p-3 align-items-center" v-on:submit.prevent="">
-                    <h1>Log in</h1>
-                    <label>
-                        Email: 
-                        <input type="text" v-model="email">
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" v-model="password">
-                    </label>
-                    <button class="btn btn-regular m-2 text-light" @click="singIn">Sing in</button> 
-                    <div v-if="noRegistrado">
-                        <p >No Registrado. Desea Registrarse?</p>
-                        <button class="btn btn-light" @click="formRegistro">Registrarse</button>        
-                    </div>
-                </form>
-            </div>
-            <div class="container d-flex justify-content-start" v-else="form">
-                <nav class ="navbar col-6 d-flex align-items-start">
-                    <h1>Lorem ipsum</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae pariatur accusantium voluptates minima cum laborum alias exercitationem. Mollitia error corporis veniam debitis accusamus nulla beatae magni at in! Eveniet, autem?</p>
-                </nav>
-                <form class="d-flex row col-6 p-3 align-items-start" v-on:submit.prevent="">
-                    <h1>Register</h1>
-                    <label>
-                        First Name:  
-                        <input type="text" v-model="newUseFirstName">
-                    </label>
-                    <label>
-                        Last Name: 
-                        <input type="text" v-model="newUserLastName">
-                    </label>
-                    <label>
-                        Email: 
-                        <input type="text" v-model="newUserEmail">
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" v-model="newUserPassword">
-                    </label>
-                    <button class="btn btn-regular m-2 text-light" @click="register">Register</button> 
-                    <p class="text-danger" v-if="erro">Faltan campos por completar</p>
+                <div class="col-6 d-flex row justify-content-start align-items-start p-3 mt-4" v-if="form">
+                    <form  class="d-flex row gap-3" >
+                        <h1>Log in</h1>
+                        <label>
+                            Email: 
+                            <input type="text" v-model="email">
+                        </label>
+                        <label>
+                            Password:
+                            <input type="password" v-model="password">
+                        </label>
+                        <button class="btn btn-regular m-2 text-light" @click="singIn">Sing in</button> 
+                        <div v-if="noRegistrado">
+                            <p >No Registrado. Desea Registrarse?</p>
+                            <button class="btn btn-light" @click="formRegistro">Registrarse</button>        
+                        </div>
+                    </form>    
+                </div>
+                <div class="col-6 d-flex row justify-content-start align-items-start p-3 mt-4" v-else="form">
+                    <form class="d-flex row gap-3" >
+                        <h1>Register</h1>
+                        <label>
+                            First Name:  
+                            <input type="text" v-model="newUseFirstName">
+                        </label>
+                        <label>
+                            Last Name: 
+                            <input type="text" v-model="newUserLastName">
+                        </label>
+                        <label>
+                            Email: 
+                            <input type="text" v-model="newUserEmail">
+                        </label>
+                        <label>
+                            Password:
+                            <input type="password" v-model="newUserPassword">
+                        </label>
+                        <button class="btn btn-regular m-2 text-light" @click="register">Register</button> 
+                        <p class="text-danger" v-if="erro">Faltan campos por completar</p>
 
-                </form>
+                    </form>
+                </div>
             </div>
             
         </main>
