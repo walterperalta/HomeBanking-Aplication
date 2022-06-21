@@ -1,0 +1,15 @@
+header{
+    height: 20vh;
+}
+header .img-fluid {
+    max-width: 7rem;
+    padding: .5rem;
+    margin-left: 1rem;
+}
+h1{
+    color: white !important;
+    padding: .5rem;
+}
+#app{
+    min-height: 80vh;
+}

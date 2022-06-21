@@ -1,0 +1,134 @@
+:root {
+    --principal : #00966B;
+    --principal-claro : #00A375;
+    --oscuro : #1F212C;
+    --btn : #00573E;
+}
+
+body{
+    /* background-color: var(--oscuro) !important; */
+    background: url("../attachments/background.png");
+}
+
+header {
+    height: 15vh;
+    width: 100%;
+}
+
+.avatar{
+    background-color: white;
+    padding: 2px;
+    border-radius: 50%;
+}
+
+.btn-regular {
+    /* background-color: var(--principal) !important;   */
+    background-color: var(--btn) !important;  
+}
+
+nav {
+    background-color: var(--principal-claro);
+    border-radius: 10px 0px 0px 10px;
+    padding: 2rem 0rem 2rem 1.5rem !important;
+}
+
+
+a {
+    text-decoration: none !important;
+    color: white !important;
+}
+
+p{
+    margin-bottom: .5rem !important;
+}
+
+main {
+    min-height: 85vh;
+    width: 100%;
+    color: white;
+}
+
+.container {
+    max-width: 65% !important;
+    padding: 0;
+    padding-left: 0px !important;
+    padding-right: 0px !important;  
+    margin: 0 auto;
+    /* border: 1px solid #979797; */
+    border-radius: 10px;
+    background-color: var(--principal);
+}
+.container-index {
+    max-width: 65% !important;
+    /* padding: 0;
+    padding-left: 0px !important;
+    padding-right: 0px !important;  
+    margin: 0 auto; */
+    /* border: 1px solid #979797; */
+    border-radius: 10px;
+    background-color: var(--principal);
+}
+
+
+#main{
+    padding: 2rem 0rem 2rem 1rem !important;
+}
+
+.card {
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    color: var(--oscuro);
+}
+
+table {
+    color: white !important;
+}
+
+.modal-header, .modal-footer {
+    background-color: var(--principal-claro);
+}
+
+.modal-body {
+    background-color: var(--principal);
+}
+
+/* tarjetas */
+
+.tarjetas {
+    padding-left: 2.5rem;
+}
+
+.card-platinium {
+    background: url("../attachments/background-target.png");
+    max-width: 25rem;
+    max-height: 15rem;
+    border-radius: 20px;
+    color: white;
+    
+}
+
+.card-number {
+    color: white;
+    font-size: 2rem;
+    padding: 1rem 0 .5rem;
+    text-align: center;
+}
+
+.card-color {
+    padding: 1rem 1rem 0 0;
+}
+
+.card-date{
+    font-size: .7rem;
+}
+
+.visa{
+    height: 35px;
+}
+
+
+footer {
+    color: white !important;
+    height: 10vh;
+    background-color: #01CD42;
+}
