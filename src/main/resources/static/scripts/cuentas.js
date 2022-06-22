@@ -14,6 +14,8 @@ Vue.createApp({
                 this.cliente = response.data
                 this.prestamos = this.cliente.loans
                 this.cuentas = this.cliente.accounts.filter(cuenta => cuenta.enable)
+                let loader = document.querySelector('#loader-container')
+                loader.classList.add('loader-desactive')
             })
 
 

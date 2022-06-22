@@ -15,6 +15,11 @@ header {
     width: 100%;
 }
 
+header > img{
+    /* background-color: red; */
+    max-height: 110px !important;
+}
+
 .avatar{
     background-color: white;
     padding: 2px;
@@ -22,7 +27,6 @@ header {
 }
 
 .btn-regular {
-    /* background-color: var(--principal) !important;   */
     background-color: var(--btn) !important;  
 }
 
@@ -32,6 +36,13 @@ nav {
     padding: 2rem 0rem 2rem 1.5rem !important;
 }
 
+nav a:hover{
+    text-decoration: none;
+    color: white !important;
+    transition: 0.3s;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.671);
+
+}
 
 a {
     text-decoration: none !important;
@@ -54,20 +65,11 @@ main {
     padding-left: 0px !important;
     padding-right: 0px !important;  
     margin: 0 auto;
-    /* border: 1px solid #979797; */
+    border: 1px solid var(--oscuro);
     border-radius: 10px;
     background-color: var(--principal);
 }
-.container-index {
-    max-width: 65% !important;
-    /* padding: 0;
-    padding-left: 0px !important;
-    padding-right: 0px !important;  
-    margin: 0 auto; */
-    /* border: 1px solid #979797; */
-    border-radius: 10px;
-    background-color: var(--principal);
-}
+
 
 
 #main{
@@ -131,4 +133,76 @@ footer {
     color: white !important;
     height: 10vh;
     background-color: #01CD42;
+}
+
+.loader-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--principal);
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+}
+
+.loader-desactive {
+    display: none;
+}
+
+/* From cssbuttons.io by @satyamchaudharydev */
+.loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid var(--btn);
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+.loading span {
+    width: 6px;
+    height: 100px;
+    background: var(--first-color);
+    animation: scale var(--speed-of-animation) ease-in-out infinite;
+}
+
+.loading span:nth-child(2) {
+    background: var(--second-color);
+    animation-delay: -0.8s;
+}
+
+.loading span:nth-child(3) {
+    background: var(--third-color);
+    animation-delay: -0.7s;
+}
+
+.loading span:nth-child(4) {
+    background: var(--fourth-color);
+    animation-delay: -0.6s;
+}
+
+.loading span:nth-child(5) {
+    background: var(--fifth-color);
+    animation-delay: -0.5s;
+}
+
+@keyframes scale {
+
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.05);
+    }
+
+    20% {
+        transform: scaleY(1);
+    }
 }
