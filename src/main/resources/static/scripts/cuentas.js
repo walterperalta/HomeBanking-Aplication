@@ -9,7 +9,7 @@ Vue.createApp({
         }
     },
     created(){
-        axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
             .then(response => {
                 this.cliente = response.data
                 this.prestamos = this.cliente.loans
@@ -39,7 +39,7 @@ Vue.createApp({
             window.location.href = `account.html?id=${id}`;
         },
         eliminar(param){
-            axios.patch(`http://localhost:8080/api/accounts/${param}`)
+            axios.patch(`https://home-banking-mh.herokuapp.com/api/accounts/${param}`)
             .then(response => {
                 console.log('ok!')
                 window.location.href = "/web/accounts.html";
@@ -52,4 +52,3 @@ Vue.createApp({
 
     }
 }).mount('#app');
-console.log('cuentaaas.js')
