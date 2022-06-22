@@ -46,21 +46,23 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication, @RequestParam String tipo){
+    public ResponseEntity<Object> createAccount(Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
-        AccountType type = AccountType.valueOf(tipo);
+        //AccountType type = AccountType.valueOf(tipo);
 
         if (client.getAccounts().size() > 2){
             return new ResponseEntity<>("403 prohibido", HttpStatus.FORBIDDEN);
         }
         //accountRepository.save(new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0.0, LocalDateTime.now(),client));
+        //accountRepository.save(new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0.0, LocalDateTime.now(),client));
+        accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(),client));
 
-        if (type == AccountType.AHORRO){
+        /*if (type == AccountType.AHORRO){
             accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(), AccountType.AHORRO,client));
         } else if (type== AccountType.CORRIENTE) {
             accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(), AccountType.CORRIENTE,client));
-        }
-        return new ResponseEntity<>(tipo,HttpStatus.CREATED);
+        }*/
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 

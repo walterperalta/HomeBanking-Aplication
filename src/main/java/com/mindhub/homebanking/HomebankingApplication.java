@@ -37,13 +37,13 @@ public class HomebankingApplication {
 
 			clientRepository.save(new Client("Juan","Perez","juanperez@mindhub.com",passwordEncoder.encode("perezJ")));
 
-			Account cuenta1 = new Account("VIN001",5000, LocalDateTime.now(), AccountType.AHORRO, cliente1);
+			Account cuenta1 = new Account("VIN001",5000, LocalDateTime.now(),  cliente1);
 			accountRepository.save(cuenta1);
-			Account cuenta2 = new Account("VIN002",7500, today.plusDays(1), AccountType.CORRIENTE, cliente1);
+			Account cuenta2 = new Account("VIN002",7500, today.plusDays(1),  cliente1);
 			accountRepository.save(cuenta2);
-			Account cuenta3 = new Account("VIN003",3700, LocalDateTime.now(), AccountType.CORRIENTE,cliente2);
+			Account cuenta3 = new Account("VIN003",3700, LocalDateTime.now(),cliente2);
 			accountRepository.save(cuenta3);
-			Account cuenta4 = new Account("VIN004",6000,today.plusDays(1),AccountType.AHORRO,cliente2);
+			Account cuenta4 = new Account("VIN004",6000,today.plusDays(1),cliente2);
 			accountRepository.save(cuenta4);
 
 			Transaction transaction1 = new Transaction(TransactionType.DEBITO,-2500,"Retiro de dinero",LocalDateTime.now(), cuenta1);

@@ -63,7 +63,7 @@ public class ClientController {
             return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
         }
         Client client = new Client(firstName, lastName, email, passwordEcoder.encode(password));
-        Account account = new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0, LocalDateTime.now(), AccountType.AHORRO, client);
+        Account account = new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0, LocalDateTime.now(), client);
 
         //clientRepository.save(client);
         clientService.saveClient(client);

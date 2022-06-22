@@ -20,7 +20,8 @@ Vue.createApp({
         }
     },
     created(){
-        axios.get(`http://localhost:8080/api/clients/current`)
+        // axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
         .then(response => {
             this.cliente = response.data
             this.cuentas = this.cliente.accounts
@@ -32,7 +33,8 @@ Vue.createApp({
             window.location.href = "/web/index.html";
         },
         mostrarCuotas(value){
-            axios.get(`http://localhost:8080/api/loans/${value}`)
+            // axios.get(`http://localhost:8080/api/loans/${value}`)
+            axios.get(`https://home-banking-mh.herokuapp.com/api/loans/${value}`)
             .then(response => {
                 this.tipoPrestamo = response.data
                 this.cuotas = this.tipoPrestamo.payments
@@ -40,7 +42,8 @@ Vue.createApp({
             })
         },
         solicitarPrestamo(){
-            axios.post('http://localhost:8080/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
+            // axios.post('http://localhost:8080/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
+            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
             .then(response => {
                 console.log("Created")
                 this.modal = 'modalCreado'

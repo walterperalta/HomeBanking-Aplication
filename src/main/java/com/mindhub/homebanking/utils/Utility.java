@@ -16,6 +16,6 @@ public final class Utility {
     }
 
     public static String getNumberAccount() {
-        return "VIN" + Utility.getRandomNumber(10000000, 99999999);
+        return "VIN" + Utility.getRandomNumber(1000, 9999);
     }
 }

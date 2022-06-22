@@ -31,13 +31,13 @@ public class Account {
 
     public Account(){ }
 
-    public Account(String number, double balance, LocalDateTime creationDate, AccountType type, Client client) {
+    public Account(String number, double balance, LocalDateTime creationDate,  Client client) {
 
         this.number = number;
         this.balance = balance;
         this.creationDate = creationDate;
         this.idClient = client;
-        this.type = type;
+        //this.type = type;
     }
 
     public String getNumber() {
@@ -91,11 +91,11 @@ public class Account {
         this.enable = enable;
     }
 
-    public AccountType getType() {
+   /* public AccountType getType() {
         return type;
     }
 
     public void setType(AccountType type) {
         this.type = type;
-    }
+    }*/
 }
