@@ -9,8 +9,8 @@ Vue.createApp({
         }
     },
     created(){
-        axios.get(`http://localhost:8080/api/accounts/${myParam}`)
-        // axios.get(`https://home-banking-mh.herokuapp.com/api/accounts/${myParam}`)
+        // axios.get(`http://localhost:8080/api/accounts/${myParam}`)
+        axios.get(`https://home-banking-mh.herokuapp.com/api/accounts/${myParam}`)
             .then(response => {
                 this.cuenta = response.data
             })

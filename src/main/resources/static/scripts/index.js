@@ -19,7 +19,8 @@ Vue.createApp({
     methods : {
         singIn(){
             let self = this;
-            axios.post('/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            // axios.post('/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('https://home-banking-mh.herokuapp.com/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
                     window.location.href = "/web/accounts.html";
                 })
@@ -31,7 +32,8 @@ Vue.createApp({
             this.form = false
         },
         register(){
-            axios.post('/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            // axios.post('/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('https://home-banking-mh.herokuapp.com/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
                     this.email = this.newUserEmail
                     this.password = this.newUserPassword
