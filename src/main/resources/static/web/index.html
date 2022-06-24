@@ -20,7 +20,7 @@
                     <img class="img-fluid col-10" src="../attachments/inicio.png" alt="inicio">
                 </nav>
                 <div class="col-6 d-flex row justify-content-start align-items-start p-3 mt-4" v-if="form">
-                    <form  class="d-flex row gap-3" v-on:submit.prevent="">
+                    <form  class="d-flex row gap-2" v-on:submit.prevent="">
                         <h1>Log In</h1>
                         <label>
                             Email: 
@@ -30,7 +30,10 @@
                             Password:
                             <input type="password" v-model="password">
                         </label>
-                        <button class="btn btn-regular m-2 text-light" @click="singIn">Sing in</button> 
+                        <div>
+                            <button class="btn btn-regular m-2 text-light" @click="singIn">Sing in</button> 
+                            <button class="btn btn-light m-2" @click="formRegistro">Registrarse</button>            
+                        </div>
                         <div v-if="noRegistrado">
                             <p >No Registrado. Desea Registrarse?</p>
                             <button class="btn btn-light" @click="formRegistro">Registrarse</button>        

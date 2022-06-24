@@ -73,6 +73,7 @@
                         <div>
                             <legend>Ingrese un monto (max. ${{tipoPrestamo.maxAmount}})</legend>
                             <input type="text" name="amount" id="amount" v-model="monto">
+                            <p class="text-warning" v-if="monto > tipoPrestamo.maxAmount">Monto excedido</p>
                             {{calculoCuota}}
                             <p v-if="monto != ''">{{cuotasSeleccionada}} cuotas de ${{montoCuotas}}</p>
                         </div>
@@ -118,19 +119,25 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div v-if="create" class="modal-body">
                                             Creado
                                         </div>
+                                        <div v-else-if="!create" class="modal-body text-warning fw-bold">
+                                            {{mensajeError}}
+                                        </div>    
+                                        <div v-else-if="!create && mensajeError == 'Alcanzo el limite de prestamo '" class="modal-body text-warning fw-bold">
+                                            {{mensajeError}} 
+                                        </div>    
                                         <div class="modal-footer">
-                                            <button class="btn btn-regular text-light" data-bs-target="#exampleModalToggle"
-                                                data-bs-toggle="modal" @click="aceptar">Aceptar</button>
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Aceptar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Button trigger modal -->
-                            <a class="btn btn-regular" data-bs-toggle="modal" href="#exampleModalToggle"
+                            <a v-if="cuentas.length > 0" class="btn btn-regular" data-bs-toggle="modal" href="#exampleModalToggle"
                                 role="button">Solicitar</a>
+                            <p v-else class="text-warning fw-bold">No posee cuenta/s para destinar el prestamo</p>
 
                         </div>
                     </form>

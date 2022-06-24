@@ -206,3 +206,7 @@ footer {
         transform: scaleY(1);
     }
 }
+
+.modal {
+    color: white !important;
+}

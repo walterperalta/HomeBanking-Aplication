@@ -61,73 +61,76 @@
                                 <input type="radio" id="tercero" v-model="cuenta" name="fav_language" value="tercero">
                             </label>
                         </div>
-                        <div v-if="cuenta == 'propia'">
-                            Selecciona la cuenta :
-                            <select name="Cuenta propia" id="cuentaPropia" v-model="destino">
-                                <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}}</option>
-                            </select>
-                        </div>
-                        <div v-else-if="cuenta == 'tercero'">
-                            Ingresa la cuenta: VIN-
-                            <input type="text" v-model="destino">
-                        </div>
-                        <div>
-                            Ingresa el monto a transferir:
-                            <div>$<input type="text" v-model="monto"></div>
-                        </div>
-                        <div>
-                            Ingresa descripcion:
-                            <div><input type="text" v-model="descripcion"></div>
-                        </div>
-                        <!-- Modal -->
-
-                        <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-                            aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Confirmacion de Transferencia
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Cuenta origen: {{origen}}</p>
-                                        <p>Cuenta destino: {{destino}}</p>
-                                        <p>Monto: ${{monto}}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-light"
-                                            data-bs-dismiss="modal">cancelar</button>
-                                        <button class="btn btn-regular text-light" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" @click="crearTransaccion">Confirmar</button>
+                        <p v-if="cuenta =='propia' && cuentas.length <= 1" class="text-warning fw-bold">No posee otra cuenta propia para transferir</p>
+                        <div v-else-if="cuenta !== ''">
+                            {{filtrarCuentas}}
+                            <div v-if="cuenta == 'propia'">
+                                Selecciona la cuenta :
+                                <select name="Cuenta propia" id="cuentaPropia" v-model="destino">
+                                    <option v-for="account in cuentasFiltradas" :value="account.number">{{account.number}}</option>
+                                </select>
+                            </div>
+                            <div v-else-if="cuenta == 'tercero'">
+                                Ingresa la cuenta: VIN
+                                <input type="text" v-model="destino">
+                            </div>
+                            <div>
+                                Ingresa el monto a transferir:
+                                <div>$<input type="text" v-model="monto"></div>
+                            </div>
+                            <div>
+                                Ingresa descripcion:
+                                <div><input type="text" v-model="descripcion"></div>
+                            </div>
+                            <!-- Modal -->
+    
+                            <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
+                                aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmacion de Transferencia
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Cuenta origen: {{origen}}</p>
+                                            <p>Cuenta destino: {{destino}}</p>
+                                            <p>Monto: ${{monto}}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">cancelar</button>
+                                            <button class="btn btn-regular text-light" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" @click="crearTransaccion">Confirmar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
-                            aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalToggleLabel2">Response</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Transferido
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-regular text-light"
-                                            data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
-                                            @click="aceptar">Aceptar</button>
+                            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true"
+                                aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalToggleLabel2">Response</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div v-if="create" class="modal-body">
+                                            Transferido
+                                        </div>
+                                        <div v-else="!create" class="modal-body text-warning fw-bold">
+                                            {{mensajeError}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Aceptar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Button trigger modal -->
+                            <a class="btn btn-regular col-6" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Solicitar</a>    
                         </div>
-                        <!-- Button trigger modal -->
-                        <a class="btn btn-regular col-6" data-bs-toggle="modal" href="#exampleModalToggle"
-                            role="button">Solicitar</a>
-
 
 
                     </form>

@@ -33,7 +33,7 @@
                             <a class ="nav-link" href="../web/cards.html">Tarjetas</a>
                             <ul class ="nav navbar-nav ms-1">
                                 <li>
-                                    <button class="btn text-light" @click="crearTarjeta">Solicitar tarjetas</button> 
+                                    <button class="btn text-light" @click="crearTarjeta" method="post">Solicitar tarjetas</button> 
                                 </li>
                             </ul>
                         </li>
@@ -43,28 +43,30 @@
                     </ul>
                 </nav>
                 <div class="col-9 d-flex row justify-content-center align-items-start" id="main">
-                    <form class="d-flex row gap-2" v-on:submit.prevent="crearTarjeta">
+                    <form class="d-flex row gap-2" role="form" @submit.prevent="crearTarjeta" method="post">
                         <h1>Solicitud de Tarjeta</h1>
                         <div>
                             <label class="m-2">
                                 Credito
-                                <input type="radio" id="CREDITO" v-model="tipoTarjeta" name="fav_language" value="CREDITO">
+                                <input type="radio" id="CREDIT" v-model="tipoTarjeta" name="fav_language" value="CREDIT">
                             </label>
                             <label class="m-2">
                                 Debito
-                                <input type="radio" id="DEBITO" v-model="tipoTarjeta" name="fav_language" value="DEBITO">
+                                <input type="radio" id="DEBIT" v-model="tipoTarjeta" name="fav_language" value="DEBIT">
                             </label>
+                            <p class="text-warning" v-if="tipoTarjeta && debito.length >= 3 && tipoTarjeta == 'DEBIT'" >Alcanzaste el limite de Tarjetas de Debito</p>
+                            <p class="text-warning" v-else-if="tipoTarjeta && credito.length >= 3 && tipoTarjeta == 'CREDIT'" >Alcanzaste el limite de Tarjetas de Credito</p>
                         </div>
                         <div>
-                            <legend>Card Color</legend>
+                            <legend>Tipo de tarjeta</legend>
                             <select id="options" v-model="colorTarjeta">
                               <option value="GOLD">Gold</option>
                               <option value="SILVER">Silver</option>
                               <option value="TITANIUM">Titanium</option>
-                          </select>
+                            </select>
                         </div>
-                        <input class="btn btn-light m-2 align-self-start col-3" type="submit" value="Solicitar">
-                        <p v-if="erro" class="text-danger">No se puede solicitar más tarjetas</p>
+                        <button type="button" class="btn btn-regular text-light col-5 ms-3" @click="crearTarjeta">Solicitar</button>
+                        <p v-if="erro" class="text-warning">No se puede solicitar más tarjetas de {{tipoTarjeta}}0 {{colorTarjeta}}</p>
                         
                     </form>
     

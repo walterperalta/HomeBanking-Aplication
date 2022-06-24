@@ -45,17 +45,22 @@ public class CardController {
     }
 
     @PostMapping("/clients/current/cards")
-    public ResponseEntity<Object> createCard(@RequestParam CardType cardType, @RequestParam CardColor color, Authentication authentication){
+    public ResponseEntity<Object> createCard(@RequestParam CardType cardType, @RequestParam CardColor cardColor, Authentication authentication){
         Client client = clientService.getClientCurrent(authentication);
         Set <Card> tipo = client.getCards().stream().filter(tarjeta -> tarjeta.getType().equals(cardType) && tarjeta.isEnable()).collect(Collectors.toSet());
+        //Set <Card> color = client.getCards().stream().filter(tarjeta -> tarjeta.getType().equals(cardColor) && tarjeta.getType().equals(cardType) && tarjeta.isEnable()).collect(Collectors.toSet());
+        Set<Card> color = tipo.stream().filter(card -> card.getColor().equals(cardColor)).collect(Collectors.toSet());
 
-        if (tipo.size() > 2){
+        if (tipo.size() >= 3 ){
+            return new ResponseEntity<>("You reach the limit of cards", HttpStatus.FORBIDDEN);
+        }
+        if (color.size() >=1){
             return new ResponseEntity<>("You reach the limit of cards", HttpStatus.FORBIDDEN);
         }
         String cardNumber = getCardNumber();
         int cvv = getCVV();
 
-        Card card = new Card(cardType,cardNumber, cvv, LocalDate.now(), LocalDate.now().plusYears(5),color, client);
+        Card card = new Card(cardType,cardNumber, cvv, LocalDate.now(), LocalDate.now().plusYears(5),cardColor, client);
         cardService.saveCard(card);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

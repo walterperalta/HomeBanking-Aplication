@@ -4,13 +4,20 @@ Vue.createApp({
             cliente : [],
             prestamos : [],
             erro : false,
-            cuentas : []
+            cuentas : [],
+            destino : '',
+            create : false,
+            cuentasRestantes: [],
+            cuentaEliminar: '',
+            create : false,
+            tipoCuenta : '',
+            cuentasFiltradas : []
 
         }
     },
     created(){
-        // axios.get(`http://localhost:8080/api/clients/current`)
-        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
+        axios.get(`http://localhost:8080/api/clients/current`)
+        // axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
             .then(response => {
                 this.cliente = response.data
                 this.prestamos = this.cliente.loans
@@ -26,8 +33,8 @@ Vue.createApp({
             window.location.href = "/web/index.html";
         },
         crearCuenta(){
-            // axios.post('/api/clients/current/accounts',`tipo=${tipo}`)
-            axios.post('/api/clients/current/accounts')
+            axios.post('/api/clients/current/accounts',`type=${this.tipoCuenta}`)
+            // axios.post('/api/clients/current/accounts')
                 .then(response => {
                     console.log("Created!")
                     window.location.href = "/web/accounts.html";
@@ -41,17 +48,21 @@ Vue.createApp({
             window.location.href = `account.html?id=${id}`;
         },
         eliminar(param){
-            // axios.patch(`http://localhost:8080/api/accounts/${param}`)
-            axios.patch(`https://home-banking-mh.herokuapp.com/api/accounts/${param}`)
+            axios.patch(`http://localhost:8080/api/accounts/${param}`,`target=${this.destino}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            // axios.patch(`https://home-banking-mh.herokuapp.com/api/accounts/${param}`)
             .then(response => {
                 console.log('ok!')
+                this.create = true
                 window.location.href = "/web/accounts.html";
             })
 
+        },
+        filtrarCuentas(param){
+            this.cuentasFiltradas = this.cuentas.filter(cuenta => cuenta.number != param)
         }
 
     },
     computed: {
-
+        
     }
 }).mount('#app');

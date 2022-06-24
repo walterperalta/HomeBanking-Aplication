@@ -8,18 +8,21 @@ Vue.createApp({
             cuenta : '',
             origen : '',
             destino : '',
-            monto : 0.0,
+            monto : 0,
             descripcion : '',
             cliente : [],
-            cuentas : []
+            cuentas : [],
+            create : false,
+            mensajeError : '',
+            cuentasFiltradas : []
         }
     },
     created(){
-        // axios.get(`http://localhost:8080/api/clients/current`)
-        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
+        axios.get(`http://localhost:8080/api/clients/current`)
+        // axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
             .then(response => {
                 this.cliente = response.data
-                this.cuentas = this.cliente.accounts
+                this.cuentas = this.cliente.accounts.filter(cuenta => cuenta.enable)
 
             })
 
@@ -30,15 +33,28 @@ Vue.createApp({
             window.location.href = "/web/index.html";
         },
         crearTransaccion(){
-            if(this.cuenta=='tercer'){
+            if(this.cuenta==='tercero'){
                 this.cuenta == 'VIN'+this.cuenta
             }
-            // axios.post('http://localhost:8080/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
+            axios.post('http://localhost:8080/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
+            // axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
                 .then(response => {
-                    console.log("Created")
+                    this.create = true
                 })
-                .catch(error = console.log("hubo un error"))
+                .catch(error => {
+                    if (this.origen === ''){
+                        this.mensajeError = 'No seleccionó una cuenta de origen'
+                    }
+                    if (this.destino === ''){
+                        this.mensajeError = 'No seleccionó una cuenta de destino'
+                    }
+                    if (this.monto === ''){
+                        this.mensajeError = 'No indicó el monto'
+                    }
+                    if (this.descripcion === ''){
+                        this.mensajeError = 'No indicó una descripcion'
+                    }
+                })
         },
         aceptar(){
             window.location.href = "/web/accounts.html"
@@ -46,6 +62,10 @@ Vue.createApp({
 
     },
     computed: {
+        filtrarCuentas(){
+            console.log(this.filtrarCuentas)
+            this.cuentasFiltradas = this.cuentas.filter(cuenta => cuenta.number !== this.origen);
+        }
 
     }
 }).mount('#app');

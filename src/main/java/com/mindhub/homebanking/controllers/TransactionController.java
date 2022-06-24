@@ -60,7 +60,7 @@ public class TransactionController {
         }
 
         //Verifico que la cuenta de origen sea distinta a la de destino
-        if (origin == target){
+        if (accountOrigin.getNumber() == accountTarget.getNumber()){
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
@@ -77,6 +77,11 @@ public class TransactionController {
         //Verif. que tenga fondos suficientes para hacer la transaccion
         if (accountOrigin.getBalance() < amount){
             return new ResponseEntity<>("Saldo insuficiente", HttpStatus.FORBIDDEN);
+        }
+
+        if(amount < 100){
+            return new ResponseEntity<>("Saldo insuficiente", HttpStatus.FORBIDDEN);
+
         }
 
         Transaction transactionDebit = new Transaction(TransactionType.DEBITO, -amount,description, LocalDateTime.now(), accountOrigin);

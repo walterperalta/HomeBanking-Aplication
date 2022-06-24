@@ -3,11 +3,11 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.DTOs.AccountDTO;
 import com.mindhub.homebanking.DTOs.ClientDTO;
 import com.mindhub.homebanking.Services.AccountService;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.AccountType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.Services.TransactionService;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +33,9 @@ public class AccountController {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    TransactionService transactionService;
+
     @RequestMapping("/accounts")
     public List<AccountDTO> getAccounts(){
         //return accountRepository.findAll().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
@@ -46,16 +49,16 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication){
+    public ResponseEntity<Object> createAccount(@RequestParam AccountType type, Authentication authentication){
         Client client = clientRepository.findByEmail(authentication.getName());
-        //AccountType type = AccountType.valueOf(tipo);
+        Set<Account> accountsEnable = client.getAccounts().stream().filter(account -> account.isEnable()).collect(Collectors.toSet());
 
-        if (client.getAccounts().size() > 2){
+        if (accountsEnable.size() > 2){
             return new ResponseEntity<>("403 prohibido", HttpStatus.FORBIDDEN);
         }
         //accountRepository.save(new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0.0, LocalDateTime.now(),client));
         //accountRepository.save(new Account("VIN"+(int)((Math.random() * (99999999 - 10000000)) + 10000000),0.0, LocalDateTime.now(),client));
-        accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(),client));
+        accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(), type,client));
 
         /*if (type == AccountType.AHORRO){
             accountService.saveAccount(new Account(getNumberAccount(),0.0, LocalDateTime.now(), AccountType.AHORRO,client));
@@ -67,13 +70,18 @@ public class AccountController {
     }
 
     @PatchMapping("accounts/{id}")
-    public ResponseEntity<Object> deleteAccount(@PathVariable Long id){
+    public ResponseEntity<Object> deleteAccount(@PathVariable Long id,@RequestParam String target){
 
         Account account = accountService.getAccountById(id);
+        Account accountTarget = accountService.getAccountByNumber(target);
 
         account.setEnable(false);
         account.getTransactions().stream().forEach(transaction -> transaction.setEnable(false));
+        Transaction transaction = new Transaction(TransactionType.CREDITO, account.getBalance(),"proveniente de cuenta eliminada: "+account.getNumber(), LocalDateTime.now(), accountTarget);
+        accountTarget.setBalance(accountTarget.getBalance()+account.getBalance());
+        transactionService.saveTransaction(transaction);
         accountService.saveAccount(account);
+        accountService.saveAccount(accountTarget);
 
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

@@ -34,7 +34,7 @@ public class AccountDTO {
 
         this.balance = account.getBalance();
         this.enable = account.isEnable();
-       // this.type = account.getType();
+        this.type = account.getType();
 
         this.transactions = account.getTransactions().stream().map(transaction -> new TransactionDTO(transaction)).collect(Collectors.toSet());
     }

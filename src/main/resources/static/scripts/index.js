@@ -40,6 +40,9 @@ Vue.createApp({
                 .catch(error => {
                     this.erro = true
                 })
+        },
+        back(){
+            this.form = true
         }
 
     },

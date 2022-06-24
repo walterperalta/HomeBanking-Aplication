@@ -4,17 +4,22 @@ Vue.createApp({
             cliente : [],
             prestamos : [],
             erro : false,
-            tipoTarjeta : "DEBIT",
-            colorTarjeta : "TITANIUM"
-
+            tipoTarjeta : "",
+            colorTarjeta : "",
+            debito : [],
+            credito : [],
+            tarjetas : []
         }
     },
     created(){
-        // axios.get(`http://localhost:8080/api/clients/current`)
-        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
+        axios.get(`http://localhost:8080/api/clients/current`)
+        // axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
             .then(response => {
                 this.cliente = response.data
                 this.prestamos = this.cliente.loans
+                this.tarjetas = this.cliente.cards
+                this.debito = this.tarjetas.filter(tarjeta => tarjeta.type === "DEBIT" && tarjeta.enable)
+                this.credito = this.tarjetas.filter(tarjeta => tarjeta.type === "CREDIT" && tarjeta.enable)
 
             })
 
@@ -25,14 +30,13 @@ Vue.createApp({
             window.location.href = "/web/index.html";
         },
         crearTarjeta(){
-            // axios.post('http://localhost:8080/api/clients/current/cards',`cardType=${this.tipoTarjeta}&color=${this.colorTarjeta}`, {
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/cards',`cardType=${this.tipoTarjeta}&color=${this.colorTarjeta}`, {
-                headers: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                }
-            })
-                .then(response => console.log('Created!'))
-                .catch(error => console.log('hubo un error :/'))
+            axios.post('http://localhost:8080/api/clients/current/cards',`cardType=${this.tipoTarjeta}&cardColor=${this.colorTarjeta}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    window.location.href = "/web/cards.html";
+                })
+                .catch(error => {
+                    this.erro = true
+                })
         }
     },
     computed: {

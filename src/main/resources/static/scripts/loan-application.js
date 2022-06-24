@@ -15,16 +15,18 @@ Vue.createApp({
             cuentas : [],
             montoCuotas : '',
             destino : '',
-            modal : ''
+            modal : '',
+            create : false,
+            mensajeError : 'hola'
             
         }
     },
     created(){
-        // axios.get(`http://localhost:8080/api/clients/current`)
-        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
+        axios.get(`http://localhost:8080/api/clients/current`)
+        // axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
         .then(response => {
             this.cliente = response.data
-            this.cuentas = this.cliente.accounts
+            this.cuentas = this.cliente.accounts.filter(cuenta => cuenta.enable)
         })
 
     },
@@ -33,8 +35,8 @@ Vue.createApp({
             window.location.href = "/web/index.html";
         },
         mostrarCuotas(value){
-            // axios.get(`http://localhost:8080/api/loans/${value}`)
-            axios.get(`https://home-banking-mh.herokuapp.com/api/loans/${value}`)
+            axios.get(`http://localhost:8080/api/loans/${value}`)
+            // axios.get(`https://home-banking-mh.herokuapp.com/api/loans/${value}`)
             .then(response => {
                 this.tipoPrestamo = response.data
                 this.cuotas = this.tipoPrestamo.payments
@@ -42,16 +44,27 @@ Vue.createApp({
             })
         },
         solicitarPrestamo(){
-            // axios.post('http://localhost:8080/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
+            axios.post('http://localhost:8080/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
+            // axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/loans',{"id" : this.tipoPrestamo.id,"amount" : this.monto,"payments" : this.cuotasSeleccionada,"target" : this.destino})
             .then(response => {
-                console.log("Created")
-                this.modal = 'modalCreado'
-                // window.location.href = "/web/accounts.html"
+                this.create = true
+                window.location.href = "/web/accounts.html"
             })
             .catch(error => {
-                console.log("hubo un error")
-                this.modal = 'modalError'
+                if (this.cuotasSeleccionada === ''){
+                    this.mensajeError = 'No seleccionó la cantidad de cuotas'
+                }else
+                if (this.prestamoSeleccionado === ''){
+                    this.mensajeError = 'No seleccionó un tipo de prestamo'
+                }else
+                if (this.monto === ''){
+                    this.mensajeError = 'No indicó el monto'
+                }else
+                if (this.destino === ''){
+                    this.mensajeError = 'No indicó una cuenta de destino'
+                }else {
+                    this.mensajeError = 'Alcanzo el limite de prestamo '
+                }
             })
 
         },
