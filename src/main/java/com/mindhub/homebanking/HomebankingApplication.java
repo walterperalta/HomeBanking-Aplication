@@ -28,9 +28,9 @@ public class HomebankingApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepostitory clientLoanRepostitory, CardRepository cardRepository){
 		return (args) -> {
 			LocalDateTime today = LocalDateTime.now();
-			Client cliente1 = new Client("Melba","Morel","melba@mindhub.com",passwordEncoder.encode("morelM"));
+			Client cliente1 = new Client("Melba","Morel","melba@admin.com",passwordEncoder.encode("melba123"));
 			clientRepository.save(cliente1);
-			Client cliente2 = new Client("Walter","Peralta","walter@mindhub.com",passwordEncoder.encode("peraltaW"));
+			Client cliente2 = new Client("Walter","Peralta","walter@gmail.com",passwordEncoder.encode("peraltaW"));
 			clientRepository.save(cliente2);
 			Client admin = new Client("admin","admin","admin@admin.com", passwordEncoder.encode("12345"));
 			clientRepository.save(admin);

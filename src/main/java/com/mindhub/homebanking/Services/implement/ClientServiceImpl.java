@@ -3,7 +3,6 @@ package com.mindhub.homebanking.Services.implement;
 import com.mindhub.homebanking.DTOs.ClientDTO;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.ClientLoanRepostitory;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

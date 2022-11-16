@@ -19,8 +19,8 @@ Vue.createApp({
     methods : {
         singIn(){
             let self = this;
-            // axios.post('/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-            axios.post('https://home-banking-mh.herokuapp.com/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('http://localhost:8080/api/login',`email=${this.email}&password=${this.password}`)
+            // axios.post('https://home-banking-mh.herokuapp.com/api/login',`email=${this.email}&password=${this.password}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
                     window.location.href = "/web/accounts.html";
                 })
@@ -29,11 +29,16 @@ Vue.createApp({
                   });
         },
         formRegistro(){
-            this.form = false
+            if (this.form){
+                this.form = false
+                this.noRegistrado = false
+            }else{
+                this.form = true
+            }
         },
         register(){
-            // axios.post('/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('http://localhost:8080/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`)
+            // axios.post('https://home-banking-mh.herokuapp.com/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
                     this.email = this.newUserEmail
                     this.password = this.newUserPassword
@@ -52,4 +57,4 @@ Vue.createApp({
 
     }
 }).mount('#app')
-console.log("indexd.js")
+console.log("index.js")

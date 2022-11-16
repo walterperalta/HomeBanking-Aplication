@@ -6,7 +6,6 @@ import com.mindhub.homebanking.Services.ClientLoanService;
 import com.mindhub.homebanking.Services.LoanService;
 import com.mindhub.homebanking.Services.TransactionService;
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -94,7 +93,8 @@ public class LoanController {
             return new ResponseEntity<>("Loan already provided",HttpStatus.FORBIDDEN);
         }
 
-        ClientLoan clientLoan = new ClientLoan( loanApplicationDTO.getAmount()*((loan.getPorcentaje()/100)+1), loanApplicationDTO.getPayments(), client, loan);
+//        ClientLoan clientLoan = new ClientLoan( loanApplicationDTO.getAmount()*((loan.getPorcentaje()/100)+1), loanApplicationDTO.getPayments(), client, loan);
+        ClientLoan clientLoan = new ClientLoan( loanApplicationDTO.getAmount(), loanApplicationDTO.getPayments(), client, loan);
         clientLoanService.saveClientLoan(clientLoan);
         Transaction transaction = new Transaction(TransactionType.CREDITO, loanApplicationDTO.getAmount(),loan.getName()+" loan approved", LocalDateTime.now(), account);
         transactionService.saveTransaction(transaction);

@@ -44,9 +44,9 @@
                 </nav>
                 <div class="col-9 d-flex row justify-content-center" id="main">
                     <div class="col-12 d-flex flex-wrap justify-content-start">
-                        <div class="col-4 p-1" v-for="cuenta in cuentas">
-                            <div class="card d-flex justify-content-center">
-                                <p class="fw-bold">N° cuenta:{{cuenta.number}}</p>
+                        <div class="col-4 p-1" v-for="cuenta in cuentas"> <!--iterador de cuentas-->
+                            <div class="card d-flex justify-content-center"> <!--cards-->
+                                <p class="fw-bold">N° cuenta: {{cuenta.number}}</p>
                                 <p class="fw-bold">Tipo: {{cuenta.type}}</p>
                                 <h2 class="card-title">$ {{cuenta.balance}}</h2>
                                 <button class="btn btn-regular col-11 text-light"  @click="verMovimientos(cuenta.id)">Movimientos</button>
@@ -107,6 +107,7 @@
                                 </div>
                                 <!-- Button trigger modal -->
                                 <a class="btn btn-light col-11 text-success" data-bs-toggle="modal" href="#exampleModalToggle" role="button" @click="filtrarCuentas(cuenta.number)">Eliminar Cuenta</a>
+                                <!-- <button class="btn btn-light col-11 text-success"  @click="eliminarCuenta">Eliminar Cuenta</button> -->
 
                             </div>
                         </div>
@@ -150,11 +151,10 @@
                                         Hecho!
                                     </div>
                                     <div v-else="!create" class="modal-body text-danger fw-bold">
-                                        Hubo un error
+                                        Alcanzó el limite de cuentas
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn btn-regular text-light"
-                                            data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button>
+                                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Aceptar</button>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                         <a class="btn btn-light col-11 text-success" data-bs-toggle="modal" href="#ModalToggle" role="button" >Crear cuenta</a>
 
 
-                        <p class="text-warning" v-if="erro">No se puede crear mas cuentas</p>
+                        <!-- <p class="text-warning" v-if="erro">No se puede crear mas cuentas</p> -->
                     </div>
                     <div v-if="prestamos.length === 0" class="col-12 d-flex justify-content-center row">
                         <h2 class="col-8 text-center text-light"> No posee historial de prestamos</h2>
@@ -176,13 +176,15 @@
                                     <th scope="col">Tipo</th>
                                     <th scope="col">Monto</th>
                                     <th scope="col">Cuotas</th>
+                                    <th scope="col">Monto Cuotas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="loan in cliente.loans">
                                     <td>{{loan.name}}</td>
-                                    <td>$ {{loan.amount}}</td>
+                                    <td>$ {{formatoNumero(loan.amount)}}</td>
                                     <td>{{loan.payments}}</td>
+                                    <td>$ {{parseInt(formatoNumero((loan.amount*((loan.porcentaje/100)+1))/loan.payments))}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -201,6 +203,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../scripts/cuentas.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>

@@ -42,42 +42,32 @@
                 </nav>
                 <div class="col-9 d-flex row justify-content-center" id="main">
                     <form class="d-flex row" v-on:submit.prevent="">
-                        <h1>Prestamos</h1>
                         <div>
-                            <legend>Selecciona un prestamo</legend>
+                            <h1>Prestamos</h1>
+                            <legend>Selecciona un prestamo: </legend>
                             <div class="col-12 d-flex align-items-end">
-                                <button class="btn btn-light m-1" @click="mostrarCuotas(1)">Hipotecario Tasa
-                                    20%</button>
-                                <button class="btn btn-light m-1" @click="mostrarCuotas(2)">Personal Tasa 33%</button>
-                                <button class="btn btn-light m-1" @click="mostrarCuotas(3)">Automotriz Tasa 27%</button>
+                                <button class="btn btn-light m-1" @click="mostrarCuotas(1)">Hipotecario </button>
+                                <button class="btn btn-light m-1" @click="mostrarCuotas(2)">Personal </button>
+                                <button class="btn btn-light m-1" @click="mostrarCuotas(3)">Automotriz </button>
                             </div>
                         </div>
-                        <div>
+                        <div v-if="tipoPrestamo.length !=0 ">
+                            <p>Tasa de interés {{tipoPrestamo.porcentaje}}%. Tope máximo $ {{montoMax}}.</p>
                             <legend>Seleciona la cantidad de cuotas</legend>
-                            <label v-if="prestamoSeleccionado == 'Hipotecario'" v-for="cuota in cuotas" class="m-1">
+                            <label v-for="cuota in cuotas" class="m-1">
                                 {{cuota}}
                                 <input type="radio" :id="cuota" v-model="cuotasSeleccionada" name="fav_language"
                                     :value="cuota">
                             </label>
-                            <label v-if="prestamoSeleccionado == 'Personal'" v-for="cuota in cuotas" class="m-1">
-                                {{cuota}}
-                                <input type="radio" id="propia" v-model="cuotasSeleccionada" name="fav_language"
-                                    :value="cuota">
-                            </label>
-                            <label v-if="prestamoSeleccionado == 'Automotriz'" v-for="cuota in cuotas" class="m-1">
-                                {{cuota}}
-                                <input type="radio" id="propia" v-model="cuotasSeleccionada" name="fav_language"
-                                    :value="cuota">
-                            </label>
                         </div>
-                        <div>
-                            <legend>Ingrese un monto (max. ${{tipoPrestamo.maxAmount}})</legend>
-                            <input type="text" name="amount" id="amount" v-model="monto">
+                        <div >
+                            <legend>Ingrese un monto: </legend>
+                            <input type="text" name="amount" id="amount" v-model="monto" placeholder="$ ">
                             <p class="text-warning" v-if="monto > tipoPrestamo.maxAmount">Monto excedido</p>
                             {{calculoCuota}}
                             <p v-if="monto != ''">{{cuotasSeleccionada}} cuotas de ${{montoCuotas}}</p>
                         </div>
-                        <div>
+                        <div >
                             Selecciona la cuenta :
                             <select name="Cuenta propia" id="cuentaPropia" v-model="destino">
                                 <option v-for="cuenta in cuentas" :value="cuenta.number">{{cuenta.number}}</option>
@@ -143,7 +133,6 @@
                     </form>
                 </div>
             </div>
-
         </main>
     </div>
 

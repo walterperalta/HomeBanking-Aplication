@@ -5,9 +5,58 @@
     --btn : #00573E;
 }
 
+@font-face {
+    font-family: Rubik-Light;
+    src: url(../rubik/Rubik-Light.ttf);
+}
+@font-face {
+    font-family: Rubik-LightItalic;
+    src: url(../rubik/Rubik-LightItalic.ttf);
+}
+@font-face {
+    font-family: Rubik-Regular;
+    src: url(../rubik/Rubik-Regular.ttf);
+}
+@font-face {
+    font-family: Rubik-Italic;
+    src: url(../rubik/Rubik-Italic.ttf);
+}
+@font-face {
+    font-family: Rubik-Medium;
+    src: url(../rubik/Rubik-Medium.ttf);
+}
+@font-face {
+    font-family: Rubik-MediumItalic;
+    src: url(../rubik/Rubik-MediumItalic.ttf);
+}
+@font-face {
+    font-family: Rubik-Semibold;
+    src: url(../rubik/Rubik-SemiBold.ttf);
+}
+@font-face {
+    font-family: Rubik-SemiboldItalic;
+    src: url(../rubik/Rubik-SemiBoldItalic.ttf);
+}
+
 body{
     /* background-color: var(--oscuro) !important; */
     background: url("../attachments/background.png");
+}
+
+body{
+    font-family: Rubik-Light !important;
+    /* font-weight: 600; */
+}
+
+h1{
+    font-family: Rubik-Medium !important;
+}
+
+#home {
+    font-family: Rubik-Italic !important;
+}
+#banking {
+    font-family:Rubik-SemiboldItalic !important;
 }
 
 header {
@@ -26,8 +75,13 @@ header > img{
     border-radius: 50%;
 }
 
+.btn{
+    font-family: Rubik-Regular !important;
+}
+
 .btn-regular {
-    background-color: var(--btn) !important;  
+    background-color: var(--btn) !important; 
+
 }
 
 nav {

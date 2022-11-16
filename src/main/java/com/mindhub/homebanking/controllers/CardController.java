@@ -1,17 +1,12 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.DTOs.CardDTO;
-import com.mindhub.homebanking.DTOs.ClientDTO;
 import com.mindhub.homebanking.Services.CardService;
 import com.mindhub.homebanking.Services.ClientService;
 import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.utils.Utility;
-import com.mindhub.homebanking.utils.Utility.*;
-import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static com.mindhub.homebanking.utils.Utility.*;

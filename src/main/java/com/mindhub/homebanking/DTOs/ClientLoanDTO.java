@@ -14,12 +14,15 @@ public class ClientLoanDTO {
 
     private int payments;
 
+    private double porcentaje;
+
     public ClientLoanDTO (ClientLoan clientLoan){
         this.id = clientLoan.getId();
         this.loanId = clientLoan.getLoan().getId();
         this.name = clientLoan.getLoan().getName();
         this.amount = clientLoan.getAmount();
         this.payments = clientLoan.getPayments();
+        this.porcentaje = clientLoan.getLoan().getPorcentaje();
     }
 
     public long getId() {
@@ -56,5 +59,13 @@ public class ClientLoanDTO {
 
     public void setPayments(int payments) {
         this.payments = payments;
+    }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(double porcentaje) {
+        this.porcentaje = porcentaje;
     }
 }
