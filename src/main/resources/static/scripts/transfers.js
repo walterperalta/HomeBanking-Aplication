@@ -18,8 +18,8 @@ Vue.createApp({
         }
     },
     created(){
-        axios.get(`http://localhost:8080/api/clients/current`)
-        // axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
+        // axios.get(`http://localhost:8080/api/clients/current`)
+        axios.get(`https://home-banking-mh.herokuapp.com/api/clients/current`)
             .then(response => {
                 this.cliente = response.data
                 this.cuentas = this.cliente.accounts.filter(cuenta => cuenta.enable)
@@ -36,8 +36,8 @@ Vue.createApp({
             if(this.cuenta==='tercero'){
                 this.cuenta == 'VIN'+this.cuenta
             }
-            axios.post('http://localhost:8080/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
-            // axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
+            // axios.post('http://localhost:8080/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
+            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/transactions',`amount=${this.monto}&description=${this.descripcion}&origin=${this.origen}&target=${this.destino}`)
                 .then(response => {
                     this.create = true
                 })
