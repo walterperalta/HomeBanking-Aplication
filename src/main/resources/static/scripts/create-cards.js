@@ -31,7 +31,7 @@ Vue.createApp({
         },
         crearTarjeta(){
             // axios.post('http://localhost:8080/api/clients/current/cards',`cardType=${this.tipoTarjeta}&cardColor=${this.colorTarjeta}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/cards',`cardType=${this.tipoTarjeta}&cardColor=${this.colorTarjeta}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.post('https://home-banking-mh.herokuapp.com/api/clients/current/cards',`cardType=${this.tipoTarjeta}&cardColor=${this.colorTarjeta}`)
                 .then(response => {
                     window.location.href = "/web/cards.html";
                 })

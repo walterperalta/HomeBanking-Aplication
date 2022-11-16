@@ -48,8 +48,8 @@ Vue.createApp({
             window.location.href = `account.html?id=${id}`;
         },
         eliminar(param){
-            // axios.patch(`http://localhost:8080/api/accounts/${param}`,`target=${this.destino}`/*,{headers:{'content-type':'application/x-www-form-urlencoded'}}*/)
-            axios.patch(`https://home-banking-mh.herokuapp.com/api/accounts/${param}`,`target=${this.destino}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            axios.patch(`http://localhost:8080/api/accounts/${param}`,`target=${this.destino}`/*,{headers:{'content-type':'application/x-www-form-urlencoded'}}*/)
+            // axios.patch(`https://home-banking-mh.herokuapp.com/api/accounts/${param}`,`target=${this.destino}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
             .then(response => {
                 console.log('ok!')
                 this.create = true
