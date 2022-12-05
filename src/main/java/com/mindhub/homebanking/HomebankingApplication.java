@@ -62,9 +62,10 @@ public class HomebankingApplication {
 			Loan loan3 = new Loan("Automotriz", 300000, List.of(6,12,24,36),27);
 			loanRepository.save(loan3);
 
-            ClientLoan clientLoan1 = new ClientLoan( 50000*((loan1.getPorcentaje()/100)+1), 60, cliente1, loan1);
-            clientLoanRepostitory.save(clientLoan1);
-            ClientLoan clientLoan2 = new ClientLoan( 50000*((loan2.getPorcentaje()/100)+1), 12, cliente1, loan2);
+//            ClientLoan clientLoan1 = new ClientLoan( 50000*((loan1.getPorcentaje()/100)+1), 60, cliente1, loan1);
+			ClientLoan clientLoan1 = new ClientLoan( 50000, 60, cliente1, loan1);
+			clientLoanRepostitory.save(clientLoan1);
+            ClientLoan clientLoan2 = new ClientLoan( 50000, 12, cliente1, loan2);
             clientLoanRepostitory.save(clientLoan2);
 
             Card card1 = new Card(CardType.DEBIT, "4839-1029-5588-9432", 617, LocalDate.of(2017,03,17), LocalDate.of(2022,04,23), CardColor.GOLD, cliente1);

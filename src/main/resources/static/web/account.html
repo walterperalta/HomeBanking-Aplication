@@ -24,7 +24,7 @@
                     <ul class ="nav navbar-nav">
                         <h4 class="text-light">Tu Cuenta</h4>
                         <li class ="nav-item">
-                            <a class ="nav-link" href="./accounts.html">Saldo</a>
+                            <a class ="nav-link fw-bold " href="./accounts.html">Saldo</a>
                         </li>
                         <li class ="nav-item">
                             <a class ="nav-link" href="../web/loan-application.html">Préstamos</a>
@@ -54,8 +54,7 @@
                                     <td>{{transaccion.date.slice(0,-16)}} {{transaccion.date.slice(11,-10)}}hs</td>
                                     <td>{{transaccion.description}}</td>
                                     <td>{{transaccion.type}}</td>
-                                    <!-- <td :class="[transaccion.type == 'CREDITO' ? 'text-success' : 'text-danger']">{{transaccion.amount}}</td> -->
-                                    <td>{{transaccion.amount}}</td>
+                                    <td>$ {{formatoNumero(transaccion.amount)}}</td>
                                </tr>
                             </tbody>
                         </table>

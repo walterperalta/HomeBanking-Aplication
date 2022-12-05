@@ -20,7 +20,7 @@ Vue.createApp({
         singIn(){
             let self = this;
             // axios.post('http://localhost:8080/api/login',`email=${this.email}&password=${this.password}`)
-            axios.post('https://home-banking-mh.herokuapp.com/api/login',`email=${this.email}&password=${this.password}`)
+            axios.post('/api/login',`email=${this.email}&password=${this.password}`)
                 .then(response => {
                     window.location.href = "/web/accounts.html";
                 })
@@ -38,7 +38,7 @@ Vue.createApp({
         },
         register(){
             // axios.post('http://localhost:8080/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`)
-            axios.post('https://home-banking-mh.herokuapp.com/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`)
+            axios.post('/api/clients',`firstName=${this.newUseFirstName}&lastName=${this.newUserLastName}&email=${this.newUserEmail}&password=${this.newUserPassword}`)
                 .then(response => {
                     this.email = this.newUserEmail
                     this.password = this.newUserPassword

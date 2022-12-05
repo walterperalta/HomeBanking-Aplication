@@ -10,7 +10,7 @@ Vue.createApp({
     },
     created(){
         // axios.get(`http://localhost:8080/api/accounts/${myParam}`)
-        axios.get(`https://home-banking-mh.herokuapp.com/api/accounts/${myParam}`)
+        axios.get(`/api/accounts/${myParam}`)
             .then(response => {
                 this.cuenta = response.data
             })
@@ -19,6 +19,14 @@ Vue.createApp({
     methods: {
         logout(){
             window.location.href = "/web/index.html";
+        },
+        formatoNumero(number){
+            number = number.toFixed(2)
+            const exp = /(\d)(?=(\d{3})+(?!\d))/g
+            const rep = '$1.'
+            let arr = number.toString().split('.')
+            arr[0] = arr[0].replace(exp,rep)
+            return arr[1] ? arr.join(','): arr[0]
         }
     },
     computed: {

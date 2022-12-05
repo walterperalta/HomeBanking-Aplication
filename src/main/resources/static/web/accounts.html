@@ -48,7 +48,7 @@
                             <div class="card d-flex justify-content-center"> <!--cards-->
                                 <p class="fw-bold">N° cuenta: {{cuenta.number}}</p>
                                 <p class="fw-bold">Tipo: {{cuenta.type}}</p>
-                                <h2 class="card-title">$ {{cuenta.balance}}</h2>
+                                <h2 class="card-title">$ {{formatoNumero(cuenta.balance)}}</h2>
                                 <button class="btn btn-regular col-11 text-light"  @click="verMovimientos(cuenta.id)">Movimientos</button>
                                 <!-- <button class="btn btn-light col-11 text-success" @click="eliminar(cuenta.id)">Eliminar Cuenta</button> -->
 
@@ -184,7 +184,8 @@
                                     <td>{{loan.name}}</td>
                                     <td>$ {{formatoNumero(loan.amount)}}</td>
                                     <td>{{loan.payments}}</td>
-                                    <td>$ {{parseInt(formatoNumero((loan.amount*((loan.porcentaje/100)+1))/loan.payments))}}</td>
+                                    <!-- <td>$ {{parseInt(formatoNumero((loan.amount*((loan.porcentaje/100)+1))/loan.payments))}}</td> -->
+                                    <td>$ {{formatoNumero((loan.amount*((loan.porcentaje/100)+1))/loan.payments)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -202,7 +203,8 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../scripts/cuentas.js"></script>
+    <!-- <script src="../scripts/cuentas.js"></script> -->
+    <script src="../scripts/funciones.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
